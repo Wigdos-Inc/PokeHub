@@ -3,4 +3,11 @@ PokeGuesser:
 - Enter button at input field
 - Add showdown/gen5 style moving sprites
 
+Battle Sim:
+
+Tabletop:
+- Character Creation
+- Feature Library
+- Battle System
+
 * = actively working on adding
