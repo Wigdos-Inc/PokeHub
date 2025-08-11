@@ -23,33 +23,51 @@ const nav = {
 const games = {
     base : {
         name: {
-            l: ["", "Battle Sim", "PokeGuesser", "Tabletop", ""],
-            s: ["", "battle", "pkGuess", "ttrpg", ""]
+            l: ["Battle Sim", "PokeGuesser", "Tabletop"],
+            s: ["battle", "pkGuess", "ttrpg"]
         },
         mode: {
             l: ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All Gens"],
-            s: ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "All"]
+            s: ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "All"],
+            c: 0
         }
     },
-    order: [0, 1, 2, 3, 4],
+    order: [],
 
     display: function(change) {
+
+        // Initialize Load Order
+        if (!this.order.length) {
+
+            const center = Math.ceil(this.base.name.l.length);
+            for (let i = center-2; i < i < center+2; i++) {
+
+                if (this.base.name.l[i]) this.order.push(i);
+                else this.order.push(-1);
+            }
+
+        }
 
         // Change Load Order if necessary
         if      (change == -1) this.order.unshift(this.order.pop());
         else if (change == 1)  this.order.push(this.order.shift());
         
-        // Display Game Info
+        // Update Boxes
         for (let i=0; i < 5; i++) {
 
             let path = (this.base.name.s[this.order[i]] !== "") ? `images/homepage/${this.base.name.s[this.order[i]]}.png` : `images/homepage/static.gif`;
             output.boxes[i].style.backgroundImage = `url(${path})`;
         }
+
+        // Display Game Info
+        output.text[0].innerHTML = this.base.name.l[this.order[2]];
+        output.text[1].innerHTML = this.base.mode.l[0];
+        
     },
 
     launch: function() {
 
-        location.href = `pages/${games.order.link[2]}.html`;
+        location.href = `pages/${games.base.name.s[2]}.html?mode=${this.base.mode[cMode]}`;
     }
 }
 
@@ -89,6 +107,20 @@ document.addEventListener("keydown", (event) => {
     // Game Nav Shortcut
     else if (event.key === "ArrowLeft") games.display(-1);
     else if (event.key === "ArrowRight") games.display(1);
+    else if (event.key === "ArrowUp") {
+        
+        if (games.base.mode.c == 0) games.base.mode.c = games.base.mode.l.length-1;
+        else games.base.mode.c--;
+        output.text[1].innerHTML = games.base.mode.l[games.base.mode.c];
+
+    }
+    else if (event.key === "ArrowDown") {
+        
+        if (games.base.mode.c == games.base.mode.l.length-1) games.base.mode.c = 0;
+        else games.base.mode.c++;
+        output.text[1].innerHTML = games.base.mode.l[games.base.mode.c];
+
+    }
 });
 
 
