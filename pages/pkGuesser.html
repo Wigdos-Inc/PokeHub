@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="../">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pokemon Guesser Collection</title>
+    <link rel="icon" type="image/x-icon" href="images/pokeball.png">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/guess.css">
+</head>
+<body>
+    <header>
+        <div id="titleBox">PokeGuesser</div>
+        <div id="subtitleBox">Gen 1</div>
+    </header>
+
+    <main>
+        <div id="contentDiv">
+            <div class="contentBar" id="topBar">
+                <div class="box leftBox" id="topLeft">
+                    <div id="guessIconBG" class="border">
+                        <p id="correct" class="tShadow"></p>
+                        <img src="" id="guessIcon">
+                    </div>
+                </div>
+
+                <div class="box midBox" id="topTop">
+                    <p id="topTopH" class="border">Dex Entry:</p>
+                    <p id="topTopP" class="border"></p>
+                </div>
+
+                <div class="box rightBox" id="topRight">
+                    <div id="topRightType" class="border tShadow topRightBox">???</div>
+
+                    <div id="topRightScore" class="border tShadow topRightBox">
+                        <div id="scoreTop"></div>
+
+                        <div id="scoreBox">
+                            <div id="scoreLiveBox"></div>
+
+                            <div id="scoreTotalBox">
+                                <div id="sTL" class="sPKL">Total: </div>
+                                <div id="sTR" class="sPKR">number</div>
+                            </div>
+                        </div>
+
+                        <div id="scoreBottom"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contentBar" id="bottomBar">
+                <div class="box leftBox" id="bottomLeft">
+                    <div id="cDex" class="border tShadow">
+                        <div id="prev"><</div>
+                        <div id="cDexNr"></div>
+                    </div>
+                    <div id="tDex" class="border tShadow">
+                        <div id="tDexNr"></div>
+                        <div id="next">></div>
+                    </div>
+                </div>
+
+                <div class="box midBox" id="bottomBottom">
+                    <input type="text" id="input" class="border" placeholder="Who's That Pokemon?">
+                    <div id="inputBtn" class="border tShadow">>></div>
+                </div>
+
+                <div class="box rightBox" id="bottomRight">
+                    <div id="cHints" class="border tShadow"></div>
+                    <div id="tHints" class="border tShadow">3</div>
+                </div>
+            </div>
+
+            <div id="infoBox">
+                <div class="infoOuter" id="iLO"><div class="infoInner" id="iLI"></div></div>
+                <div class="infoOuter" id="iMO"><div class="infoInner" id="iMI"></div></div>
+                <div class="infoOuter" id="iRO"><div class="infoInner" id="iRI"></div></div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="scripts/json/load.js"></script>
+    <script src="scripts/games/pkGuesser.js"></script>
+</body>
+</html>

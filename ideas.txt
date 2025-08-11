@@ -1,0 +1,6 @@
+PokeGuesser:
+- List of answered questions (leaderboard style; right side under type; Shows: question number, sprite, pkName & points gained; background per entry determined by points)
+- Enter button at input field
+- Add showdown/gen5 style moving sprites
+
+* = actively working on adding

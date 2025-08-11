@@ -1,0 +1,238 @@
+body {
+    background-image: url(../images/bg/background.jpg);
+}
+
+#contentDiv {
+    height: 66%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selectorBars {
+    width: 25%;
+    height: 21%;
+
+    background-color: #454344;
+}
+
+#topBar {
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+
+    border-bottom: 2px solid #d7d7d7;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+
+    user-select: none;
+}
+#choiceTitle {
+    font-size: 20px;
+}
+#choiceSubtitle {
+    font-size: 15px;
+}
+
+
+#selectorBox {
+    height: 64%;
+    width: 100%;
+
+    background-color: #454344;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.optionBox {
+    height: 71%;
+    width: 18%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.selectorOptions {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50px;
+    background-color: black;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.selectS1 {
+    transform: scale(0.9);
+    filter: blur(1px);
+}
+.selectS2 {
+    transform: scale(0.8);
+    filter: blur(1px);
+}
+#cSelect {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+#cSelect:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #d7d7d7;
+}
+
+
+#botoxBar {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+    overflow: hidden;
+
+    border-top: 2px solid #d7d7d7;
+    
+    display: flex;
+}
+
+.botox {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.botox img {
+    height: 70%;
+    pointer-events: none;
+    user-select: none;
+}
+#centreBotoxox {
+    border-left: 3px solid #d7d7d7;
+    border-right: 3px solid #d7d7d7;
+
+    display: flex;
+    flex-direction: column;
+}
+#centreBotoxox div {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#centreBotoxox div img {
+    height: 70%;
+}
+#topBotox {
+    border-bottom: 1px solid #d7d7d7;
+    height: 62%;
+}
+#bottomBotox {
+    border-top: 1px solid #d7d7d7;
+    height: 62%;
+}
+
+#right {
+    rotate: 180deg;
+}
+#bottom {
+    rotate: 270deg;
+}
+#top {
+    rotate: 90deg;
+}
+.but:hover {
+    background-color: rgba(255, 255, 255, 0.200);
+    cursor: pointer;
+}
+.but:active {
+    background-color: rgba(0, 0, 0, 0.200);
+}
+
+
+
+@media only screen and (max-width: 1200px) {
+
+    #selectorBox {
+        gap: 5px;
+    }
+
+    #cSelectBox, .selectS1Box, .selectorBars {
+        width: 40%;
+    }
+
+    .selectS2Box {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+
+    body {
+        background-image: url(../images/bg/background_phone.jpg);
+    }
+
+    .selectorBox {
+        display: block;
+    }
+    .optionBox {
+        display: none;
+    }
+    #cSelectBox {
+        width: 60%;
+        display: unset;
+    }
+
+    .selectorBars {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .selectorBox {
+        display: block;
+    }
+    .optionBox {
+        display: none;
+    }
+    #cSelectBox {
+        width: 80%;
+        display: unset;
+    }
+
+    .selectorBars {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+
+    .selectorBox {
+        display: block;
+    }
+    .optionBox {
+        display: none;
+    }
+    #cSelectBox {
+        width: 90%;
+        display: unset;
+    }
+
+    .selectorBars {
+        width: 90%;
+    }
+}
