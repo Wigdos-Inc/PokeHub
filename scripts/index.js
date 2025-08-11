@@ -12,56 +12,44 @@ const output = {
 }
 for (let i=0, boxClass = document.getElementsByClassName("selectorOptions"); i < boxClass.length; i++) output.boxes.push(boxClass[i]);
 
+const nav = {
+    left : document.getElementById("leftBotox"),
+    right: document.getElementById("rightBotox"),
+    up   : document.getElementById("topBotox"),
+    down : document.getElementById("bottomBotox")
+}
+
 
 const games = {
     base : {
-        name: ["PokeGuesser"],
-        img : ["whoPokemon.png"],
-        link: ["pages/pkGuesser.html"]
-    },
-    order: {
-        name: [],
-        img : [],
-        link: []
-    },
-
-    display: function() {
-
-        // Reset Arrays
-        for (let [key, entry] of Object.entries(this.order)) entry = [];
-
-        // Determine Load Order
-        let realI = 0;
-        for (let i=0; i < 5; i++) {
-
-            if (
-                this.base.name.length == 1 && i != 2 ||
-                this.base.name.length == 2 && (i < 2 || i > 3) ||
-                this.base.name.length == 3 && (i == 0 || i == 4) ||
-                this.base.name.length == 4 && i == 0
-            )  {
-                for (let [key, entry] of Object.entries(this.order)) entry.push(null);
-            } else {
-
-                this.order.name.push(this.base.name[realI]);
-                this.order.img.push(this.base.img[realI]);
-                this.order.link.push(this.base.link[realI]);
-
-                realI++;
-
-            }
+        name: {
+            l: ["", "Battle Sim", "PokeGuesser", "Tabletop", ""],
+            s: ["", "battle", "pkGuess", "ttrpg", ""]
+        },
+        mode: {
+            l: ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All Gens"],
+            s: ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "All"]
         }
+    },
+    order: [0, 1, 2, 3, 4],
 
-        // Load Text (change if more entries are added)
-        output.text[0].innerHTML = this.order.name[2];
-        output.text[1].innerHTML = "Gen 1" // Only available one for now
+    display: function(change) {
 
-        // Load Image and link
+        // Change Load Order if necessary
+        if      (change == -1) this.order.unshift(this.order.pop());
+        else if (change == 1)  this.order.push(this.order.shift());
+        
+        // Display Game Info
         for (let i=0; i < 5; i++) {
 
-            let path = (this.order.img[i] !== null) ? `images/homepage/${this.order.img[i]}` : `images/homepage/static.png`;
+            let path = (this.base.name.s[this.order[i]] !== "") ? `images/homepage/${this.base.name.s[this.order[i]]}.png` : `images/homepage/static.gif`;
             output.boxes[i].style.backgroundImage = `url(${path})`;
         }
+    },
+
+    launch: function() {
+
+        location.href = `pages/${games.order.link[2]}.html`;
     }
 }
 
@@ -76,17 +64,35 @@ function fade(type) {
 
     if (window.innerWidth > 800) clearTimeout(fadeTimer);
 
-    if (type == "in") output.container.style.opacity = 1;
-    else if (type == "out") output.container.style.opacity = 0.1;
+    if (type == "in") {
+        output.container.style.opacity = 1;
+    }
+    else if (type == "out") {
+        output.container.style.opacity = 0.1;
+    }
 }
 
 
 
 /* Event Listeners */
 
-output.boxes[2].addEventListener("click", () => location.href = games.order.link[2]);
+// Game Navigation
+nav.left.onclick = () => games.display(-1);
+nav.right.onclick = () => games.display(1);
+
+// Launch Game
+output.boxes[2].addEventListener("click", () => games.launch());
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Enter") games.launch();
+
+    // Game Nav Shortcut
+    else if (event.key === "ArrowLeft") games.display(-1);
+    else if (event.key === "ArrowRight") games.display(1);
+});
 
 
+// UI Fade In/Out
 document.addEventListener("mouseover", (event) => {
 
     if (window.innerWidth > 800 && (output.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
@@ -95,10 +101,7 @@ document.addEventListener("mouseout", (event) => {
 
     if (window.innerWidth > 800 && (output.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fadeTimer = setTimeout(() => fade("out"), 1000);
 });
-
 document.addEventListener("click", (event) => {
-
-    console.log(event.target);
 
     if (window.innerWidth <= 800) {
 
@@ -111,4 +114,4 @@ document.addEventListener("click", (event) => {
 
 /* Function Startup */
 
-games.display();
+games.display(-0);

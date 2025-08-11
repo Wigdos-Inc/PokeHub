@@ -98,6 +98,10 @@ body {
     
     display: flex;
 }
+#botoxBar img {
+    pointer-events: none;
+    user-select: none;
+}
 
 .botox {
     width: 100%;

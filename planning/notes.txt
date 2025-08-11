@@ -2,5 +2,5 @@ Game ideas:
 - Pokemon Guesser: Desc
 - Pokemon Guesser: Free
 - Region Guesser
-- Type Interaction Test
 - Battle Simulator
+- Tabletop
