@@ -1,0 +1,206 @@
+{
+    "pokemon": 
+    {
+        "bulbasaur": {
+            "id": 1,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "brain",
+                "minor": "",
+                "skill": ["balance", "nature"]
+            }
+        },
+        "ivysaur": {
+            "id": 2,
+            "evo_lvl": 7,
+            "instinct": {
+                "major": "",
+                "minor": "wisdom",
+                "skill": []
+            }
+        },
+        "venusaur": {
+            "id": 3,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brain",
+                "minor": "",
+                "skill": []
+            }
+        },
+
+        "charmander": {
+            "id": 4,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "agility",
+                "minor": "",
+                "skill": ["endurance", "composure"]
+            }
+        },
+        "charmeleon": {
+            "id": 5,
+            "evo_lvl": 8,
+            "instinct": {
+                "major": "",
+                "minor": "guts",
+                "skill": []
+            }
+        },
+        "charizard": {
+            "id": 6,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "wit",
+                "minor": "",
+                "skill": []
+            }
+        },
+
+        "squirtle": {
+            "id": 7,
+            "evo_lvl": 5,
+            "instinct": {
+                "major": "brain",
+                "minor": "",
+                "skill": ["resilience", "composure"]
+            }
+        },
+        "wartortle": {
+            "id": 8,
+            "evo_lvl": 9,
+            "instinct": {
+                "major": "",
+                "minor": "resistance",
+                "skill": []
+            }
+        },
+        "blastoise": {
+            "id": 9,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn",
+                "minor": "",
+                "skill": []
+            }
+        },
+
+        "caterpie": {
+            "id": 10,
+            "evo_lvl": 2,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        },
+        "metapod": {
+            "id": 11,
+            "evo_lvl": 3,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        },
+        "butterfree": {
+            "id": 12,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        },
+
+        "weedle": {
+            "id": 13,
+            "evo_lvl": 2,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        },
+        "kakuna": {
+            "id": 14,
+            "evo_lvl": 3,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        },
+        "beedrill": {
+            "id": 15,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "",
+                "minor": "",
+                "skill": []
+            }
+        }
+    },
+
+
+    "skills": 
+    {
+        "strength": 
+        [
+            "Hauling"
+        ],
+        "resistance": 
+        [
+            "Endurance",
+            "Resilience"
+        ],
+
+        "quickness": 
+        [
+            
+        ],
+        "reflex": 
+        [
+            "Balance"
+        ],
+
+        "intellect": 
+        [
+            "Tools",
+            "Identify",
+            "Memory"
+        ],
+        "wisdom": 
+        [
+            "Nature",
+            "Cooking"
+        ],
+
+        "social": 
+        [
+            "Empathy",
+            "Secrecy",
+            ""
+        ],
+        "guts": 
+        [
+            "Composure"
+        ]
+    },
+    "abilities":
+    {
+
+    },
+    "feats": 
+    {
+
+    },
+    "moves": 
+    {
+
+    },
+    "items": 
+    {
+
+    }
+}
