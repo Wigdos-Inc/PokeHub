@@ -6,8 +6,8 @@
             "evo_lvl": 4,
             "instinct": {
                 "major": "brain",
-                "minor": "",
-                "skill": ["balance", "nature"]
+                "minor": [],
+                "skill": ["nature"]
             }
         },
         "ivysaur": {
@@ -15,8 +15,8 @@
             "evo_lvl": 7,
             "instinct": {
                 "major": "",
-                "minor": "wisdom",
-                "skill": []
+                "minor": ["strength", "wisdom"],
+                "skill": ["balance", "composure"]
             }
         },
         "venusaur": {
@@ -24,8 +24,8 @@
             "evo_lvl": null,
             "instinct": {
                 "major": "brain",
-                "minor": "",
-                "skill": []
+                "minor": [],
+                "skill": ["nature"]
             }
         },
 
@@ -34,8 +34,8 @@
             "evo_lvl": 4,
             "instinct": {
                 "major": "agility",
-                "minor": "",
-                "skill": ["endurance", "composure"]
+                "minor": [],
+                "skill": []
             }
         },
         "charmeleon": {
@@ -43,7 +43,7 @@
             "evo_lvl": 8,
             "instinct": {
                 "major": "",
-                "minor": "guts",
+                "minor": ["strength", "guts"],
                 "skill": []
             }
         },
@@ -52,26 +52,26 @@
             "evo_lvl": null,
             "instinct": {
                 "major": "wit",
-                "minor": "",
+                "minor": [],
                 "skill": []
             }
         },
 
         "squirtle": {
             "id": 7,
-            "evo_lvl": 5,
+            "evo_lvl": 4,
             "instinct": {
                 "major": "brain",
-                "minor": "",
-                "skill": ["resilience", "composure"]
+                "minor": [],
+                "skill": []
             }
         },
         "wartortle": {
             "id": 8,
-            "evo_lvl": 9,
+            "evo_lvl": 8,
             "instinct": {
                 "major": "",
-                "minor": "resistance",
+                "minor": ["resistance", "social"],
                 "skill": []
             }
         },
@@ -80,7 +80,7 @@
             "evo_lvl": null,
             "instinct": {
                 "major": "brawn",
-                "minor": "",
+                "minor": [],
                 "skill": []
             }
         },
@@ -89,8 +89,8 @@
             "id": 10,
             "evo_lvl": 2,
             "instinct": {
-                "major": "",
-                "minor": "",
+                "major": "brain",
+                "minor": ["reflex", "intellect"],
                 "skill": []
             }
         },
@@ -99,7 +99,7 @@
             "evo_lvl": 3,
             "instinct": {
                 "major": "",
-                "minor": "",
+                "minor": [],
                 "skill": []
             }
         },
@@ -107,8 +107,8 @@
             "id": 12,
             "evo_lvl": null,
             "instinct": {
-                "major": "",
-                "minor": "",
+                "major": "brain",
+                "minor": [],
                 "skill": []
             }
         },
@@ -117,8 +117,8 @@
             "id": 13,
             "evo_lvl": 2,
             "instinct": {
-                "major": "",
-                "minor": "",
+                "major": "brain",
+                "minor": ["reflex", "guts"],
                 "skill": []
             }
         },
@@ -127,7 +127,7 @@
             "evo_lvl": 3,
             "instinct": {
                 "major": "",
-                "minor": "",
+                "minor": [],
                 "skill": []
             }
         },
@@ -135,8 +135,244 @@
             "id": 15,
             "evo_lvl": null,
             "instinct": {
+                "major": "brawn",
+                "minor": [],
+                "skill": []
+            }
+        },
+
+        "pidgey": {
+            "id": 16,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "brain",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "pidgeotto": {
+            "id": 17,
+            "evo_lvl": 8,
+            "instinct": {
                 "major": "",
-                "minor": "",
+                "minor": ["quickness", "guts"],
+                "skill": []
+            }
+        },
+        "pidgeot": {
+            "id": 18,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "agility",
+                "minor": [],
+                "skill": []
+            }
+        },
+
+        "rattata": {
+            "id": 19,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "agility",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "raticate": {
+            "id": 20,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn",
+                "minor": ["quickness", "guts"],
+                "skill": []
+            }
+        },
+
+        "spearow": {
+            "id": 21,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "agility",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "fearow": {
+            "id": 22,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn",
+                "minor": ["quickness", "intellect"],
+                "skill": []
+            }
+        },
+
+        "ekans": {
+            "id": 23,
+            "evo_lvl": 5,
+            "instinct": {
+                "major": "brawn",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "arbok": {
+            "id": 24,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "wit",
+                "minor": ["wisdom", "guts"],
+                "skill": []
+            }
+        },
+
+        "pikachu": {
+            "id": 25,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "agility",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "raichu": {
+            "id": 26,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brain",
+                "minor": [],
+                "skill": []
+            }
+        },
+
+        "sandshrew": {
+            "id": 27,
+            "evo_lvl": 5,
+            "instinct": {
+                "major": "brawn?",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "sandslash": {
+            "id": 28,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn?",
+                "minor": ["resistance", "intellect"],
+                "skill": []
+            }
+        },
+
+        "nidoran_f": {
+            "id": 29,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "guts",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "nidorina": {
+            "id": 30,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "",
+                "minor": ["strength", "resistance"],
+                "skill": []
+            }
+        },
+        "nidoqueen": {
+            "id": 31,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn",
+                "minor": [],
+                "skill": []
+            }
+        },
+
+        "nidoran_m": {
+            "id": 32,
+            "evo_lvl": 4,
+            "instinct": {
+                "major": "guts",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "nidorino": {
+            "id": 33,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "",
+                "minor": ["strength", "quickness"],
+                "skill": []
+            }
+        },
+        "nidoking": {
+            "id": 34,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "brawn",
+                "minor": [],
+                "skill": []
+            }
+        },
+
+        "clefairy": {
+            "id": 35,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "wit",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "clefable": {
+            "id": 36,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "wit",
+                "minor": ["wisdom", "social"],
+                "skill": []
+            }
+        },
+
+        "vulpix": {
+            "id": 37,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "agility",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "ninetales": {
+            "id": 38,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "wit",
+                "minor": ["intellect", "wisdom"],
+                "skill": []
+            }
+        },
+
+        "jigglypuff": {
+            "id": 39,
+            "evo_lvl": "item",
+            "instinct": {
+                "major": "social",
+                "minor": [],
+                "skill": []
+            }
+        },
+        "wigglytuff": {
+            "id": 40,
+            "evo_lvl": null,
+            "instinct": {
+                "major": "social",
+                "minor": ["resistance", "guts"],
                 "skill": []
             }
         }
@@ -147,12 +383,12 @@
     {
         "strength": 
         [
-            "Hauling"
+            "hauling"
         ],
         "resistance": 
         [
-            "Endurance",
-            "Resilience"
+            "endurance",
+            "resilience"
         ],
 
         "quickness": 
@@ -161,30 +397,34 @@
         ],
         "reflex": 
         [
-            "Balance"
+            "balance"
         ],
 
         "intellect": 
         [
-            "Tools",
-            "Identify",
-            "Memory"
+            "tools",
+            "identify",
+            "memory",
+            "humanity"
         ],
         "wisdom": 
         [
-            "Nature",
-            "Cooking"
+            "nature",
+            "intuition"
         ],
 
         "social": 
         [
-            "Empathy",
-            "Secrecy",
-            ""
+            "secrecy",
+            "emotion"
         ],
         "guts": 
         [
-            "Composure"
+            "composure"
+        ],
+        "any":
+        [
+            "intimidation"
         ]
     },
     "abilities":
