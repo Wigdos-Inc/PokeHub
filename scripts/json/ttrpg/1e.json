@@ -383,7 +383,8 @@
     {
         "strength": 
         [
-            "hauling"
+            "hauling",
+            "power"
         ],
         "resistance": 
         [
@@ -393,11 +394,13 @@
 
         "quickness": 
         [
-            
+            "sprint",
+            "stealth"
         ],
         "reflex": 
         [
-            "balance"
+            "balance",
+            "evasion"
         ],
 
         "intellect": 
@@ -405,7 +408,7 @@
             "tools",
             "identify",
             "memory",
-            "humanity"
+            "mythology"
         ],
         "wisdom": 
         [
@@ -416,20 +419,133 @@
         "social": 
         [
             "secrecy",
-            "emotion"
+            "emotion",
+            "intimacy",
+            "speech"
         ],
         "guts": 
         [
-            "composure"
+            "composure",
+            "resolve"
         ],
-        "any":
+        
+        "wildcard":
         [
             "intimidation"
         ]
     },
     "abilities":
     {
-
+        "overgrow": 
+        [
+            "Using a Grass-Type Move while at or below half of your Max HP.",
+            "The move will do +1 damage."
+        ],
+        "torrent": 
+        [
+            "Using a Water-Type Move while at or below half of your Max HP.",
+            "The move will do +1 damage."
+        ],
+        "blaze": 
+        [
+            "Using a Fire-Type Move while at or below half of your Max HP.",
+            "The move will do +1 damage."
+        ],
+        "swarm": 
+        [
+            "Using a Bug-Type Move while at or below half of your Max HP.",
+            "The move will do +1 damage."
+        ],
+        "intimidate": 
+        [
+            "Enter Battle.",
+            "Lower's all hostile Pokemon's Damage Status by 1 stage."
+        ],
+        "static": 
+        [
+            "A foe hits you with a physical attack.",
+            "Roll a d4. On a 4, the attacker becomes Paralyzed."
+        ],
+        "flame_body": 
+        [
+            "A foe hits you with a physical attack.",
+            "Roll a d4. On a 4, the attacker becomes Burned."
+        ],
+        "poison_point": 
+        [
+            "A foe hits you with a physical attack.",
+            "Roll a d4. On a 4, the attacker becomes Poisoned."
+        ],
+        "effect_spore": 
+        [
+            "A foe hits you with a physical attack.",
+            "Roll a d10. On an 8, the attacker becomes Poisoned. On a 9, the attacker becomes Paralyzed. On a 10, the attacker falls Asleep."
+        ],
+        "sturdy": 
+        [
+            "You would be reduced to 0 HP from full HP in one attack.",
+            "You instead remain at 1 HP."
+        ],
+        "levitate": 
+        [
+            "You are being targeted by a Ground-type move or hazard.",
+            "You take no damage."
+        ],
+        "keen_eye": 
+        [
+            "An effect would lower your Accuracy.",
+            "Your Accuracy is not lowered."
+        ],
+        "sand_veil": 
+        [
+            "You are in a Sandstorm.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "snow_cloak": 
+        [
+            "You are in Hail.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "chlorophyll": 
+        [
+            "You are in Harsh Sunlight.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "swift_swim": 
+        [
+            "You are in Rain.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "sand_rush": 
+        [
+            "You are in a Sandstorm.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "slush_rush": 
+        [
+            "You are in Hail.",
+            "Your Evasion Status increases by 1 stage."
+        ],
+        "guts": 
+        [
+            "You are affected by a major status condition (Burn, Poison, Paralysis, Sleep, Freeze).",
+            "Your Attack Status increases by 1 stage."
+        ],
+        "marvel_scale": 
+        [
+            "You are affected by a major status condition (Burn, Poison, Paralysis, Sleep, Freeze).",
+            "Your Defense Status increases by 1 stage."
+        ],
+        "quick_feet": 
+        [
+            "You are affected by a major status condition (Burn, Poison, Paralysis, Sleep, Freeze).",
+            "Your Speed Status increases by 1 stage."
+        ],
+        "hustle": 
+        [
+            "You use a physical move.",
+            "The move deals +1 damage, but your Accuracy is reduced by 1 stage for the attack."
+        ]
     },
     "feats": 
     {
