@@ -547,8 +547,14 @@ window.addEventListener("dataLoad", () => {
             this.points.pp[this.index] = points;
             this.points.total += points;
 
-            this.lock[game.index] = true;
+            this.lock[this.index] = true;
             elements.input.disabled = true;
+
+            // Display Guess in the List
+            document.getElementsByClassName("scorePK")[this.index].style.display = "flex";
+            document.getElementsByClassName("scorePK")[this.index].style.backgroundColor = this.points.color[this.cHints[this.index]];
+            document.getElementsByClassName(`sPKL`)[this.index].innerHTML = `${this.index+1}. ${this.pokemon.name}`;
+            document.getElementsByClassName(`sPKR`)[this.index].innerHTML = points;
         }
     }
 

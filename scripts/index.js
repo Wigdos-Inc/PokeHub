@@ -19,8 +19,8 @@ const nav = {
 
 const games = {
     name: {
-        l: ["Battle Sim", "PokeGuesser", "Tabletop"],
-        s: ["battle", "pkGuess", "ttrpg"],
+        l: ["Battle Sim", "PokeGuesser", "Super Guesser", "Tabletop"],
+        s: ["battle", "pkGuess", "spGuess", "ttrpg"],
         c: undefined
     },
     mode: {
@@ -34,6 +34,7 @@ const games = {
         [
             [0, 1],
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            [],
             [1]
         ],
         c: [0, 0]
