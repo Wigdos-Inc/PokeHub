@@ -28,6 +28,7 @@ const games = {
         [
             ["Easy Mode", "Hard Mode"],
             ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All Gens"],
+            [""],
             ["1st Edition"]
         ],
         s: 

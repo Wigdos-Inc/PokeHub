@@ -13,9 +13,6 @@ async function loadData() {
         // Create Event (for event listeners)
         window.dispatchEvent(new Event("dataLoad"));
 
-        // Testing
-        console.log(window.pokedex[0].name.english);
-
     } catch (error) {
         console.error('Error fetching JSON data:', error);
     }
