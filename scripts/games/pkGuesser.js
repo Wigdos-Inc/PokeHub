@@ -276,7 +276,7 @@ window.addEventListener("dataLoad", () => {
                 else if (!this.input.contains(event.target) && !this.info[1].contains(event.target)) this.autofill(false);
 
                 // Submit Answer
-                if (this.inbtn.contains(event.target)) this.validate
+                if (this.inbtn.contains(event.target)) this.validate();
             });
         },
 
@@ -476,17 +476,15 @@ window.addEventListener("dataLoad", () => {
             const value = this.input.replaceAll(" ", "").toLowerCase();
             const answer = game.pokemon.name.replaceAll(" ", "").toLowerCase();
 
-            let lock = false;
-
             // Check if answer is correct
-            if (value == answer) game.locker(false);
+            if (value == answer) game.locker(true);
             else {
 
                 if (game.cHints[game.index] > 0) {
                     game.cHints[game.index]--;
                     this.hintStuff();
                 }
-                else game.locker(true);
+                else game.locker(false);
 
             }
         }
@@ -547,7 +545,7 @@ window.addEventListener("dataLoad", () => {
         locker: function(success) {
 
             // Determine Earned Points
-            const points = success ? 0 : this.points.base[this.cHints[this.index]];
+            const points = success ? this.points.base[this.cHints[this.index]] : 0;
 
             // Add points to PP and Total
             this.points.pp[this.index] = points;
