@@ -390,7 +390,7 @@ window.addEventListener("dataLoad", () => {
                 for (let i=0; i < game.total[game.gen]; i++) {
 
                     // Store Pokemon Name & Prepare to Count Correct Letters
-                    const pName = game.pokemon.name.replaceAll(" ", "").toLowerCase();
+                    const pName = window.pokedex[i].name.english.replaceAll(" ", "").toLowerCase();
                     let cLetters = 0;
 
                     // Iterate through Letters of User Input
@@ -406,7 +406,7 @@ window.addEventListener("dataLoad", () => {
                         // Display Auto-Fill
                         const entry = this.info[1].appendChild(document.createElement("div")); entry.classList.add("fillEntry");
 
-                        let fOutput = game.pokemon.name;
+                        let fOutput = window.pokedex[i].name.english;
                         let nOutput = "";
                         
                         // Turn matching letters upper case
@@ -459,15 +459,36 @@ window.addEventListener("dataLoad", () => {
                         }
                         else if (e.key === "Enter" && cBox.b) {
                             // Autofill
-                            elements.input.value = cBox.b.innerHTML;
-                            elements.autofill(false);
+                            this.input.value = cBox.b.innerHTML;
+                            this.autofill(false);
                         }
 
                         console.log(e.key, cBox.b);
                     });
 
                 }
-            } else elements.info[1].style.opacity = 0;
+            } else this.info[1].style.opacity = 0;
+        },
+
+        validate: function() {
+
+            // Store User Input
+            const value = this.input.replaceAll(" ", "").toLowerCase();
+            const answer = game.pokemon.name.replaceAll(" ", "").toLowerCase();
+
+            let lock = false;
+
+            // Check if answer is correct
+            if (value == answer) game.locker(false);
+            else {
+
+                if (game.cHints[game.index] > 0) {
+                    game.cHints[game.index]--;
+                    this.hintStuff();
+                }
+                else game.locker(true);
+
+            }
         }
     }
 
