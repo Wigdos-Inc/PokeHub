@@ -17,11 +17,13 @@
 
 body, html {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
 
     font-family: Arial, Helvetica, sans-serif;
     color: whitesmoke;
     background-color: #D7D7D7;
+
+    overflow: hidden;
 }
 body {
     background-position: center;
@@ -71,14 +73,64 @@ header div {
 
 main {
     height: 77%;
+    width: 100%;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative;
 }
 
 #contentDiv {
     transition: opacity 1s;
+    background-color: #454344;
+    opacity: 1;
+}
+
+#swipeBox {
+    position: absolute;
+    bottom: 4%;
+
+    height: 4%;
+    width: 40%;
+
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 5px solid #454344;
+    border-radius: 50px;
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+#swipeBox div {
+    width: 100%;
+    height: 100%;
+}
+
+
+footer {
+    display: none;
+    width: 100%;
+    height: 10%;
+
+    background-color: #E4E4E4;
+    color: #454344;
+    border-top: 5px solid #454344;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+footer div {
+    text-align: center;
+}
+#footTitle {
+    font-size: 25px;
+}
+#footSub {
+    font-size: 20px;
 }
 
 
@@ -90,30 +142,52 @@ main {
     }
 }
 
+/* Mobile Version */
 @media only screen and (max-width: 850px) {
 
-    #subtitleBox {
-        width: 60%;
+    header {
+        height: 10%;
     }
-}
-
-@media only screen and (max-width: 600px) {
-
     #titleBox {
-        font-size: 40px;
+        height: 100%;
+        border-bottom: 5px solid #454344;
     }
+
+    main {
+        height: 80%;
+    }
+    #contentDiv {
+        height: 60%;
+        width: 70%;
+        border: 5px solid #454344;
+    }
+    #contentDiv, #selectorBox {
+        border-radius: 50px;
+    }
+
     #subtitleBox {
-        width: 80%;
+        display: none;
+    }
+
+    #swipeBox {
+        display: flex;
+    }
+
+    footer {
+        display: flex;
     }
 }
 
 @media only screen and (max-width: 500px) {
-
+    
     #titleBox {
-        font-size: 30px;
+        font-size: 8vw;
     }
-    #subtitleBox {
-        width: 90%;
-        font-size: 25px;
+
+    #footTitle {
+        font-size: 6vw;
+    }
+    #footSub {
+        font-size: 4vw;
     }
 }
