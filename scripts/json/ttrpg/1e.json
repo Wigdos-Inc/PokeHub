@@ -548,7 +548,7 @@
             "The Accuracy is lowered by 1, but the attack does 1 more Damage."
         ]
     },
-    
+
     "feats": 
     {
         "weapon_training": 
@@ -575,7 +575,12 @@
     },
     "moves": 
     {
-
+        "name": {
+            "power": 0,
+            "accuracy": 0,
+            "type": "",
+            "effect": ""
+        }
     },
     "items": 
     {
