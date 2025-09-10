@@ -1,15 +1,10 @@
 /* Objects */
 
-const output = {
-    text     : [document.getElementById("choiceTitle"), document.getElementById("choiceSubtitle")],
-    boxes    : [],
-    main     : document.getElementsByTagName("main")[0],
-    container: document.getElementById("contentDiv"),
-    fadeTimer: undefined
-}
-for (let i=0, boxClass = document.getElementsByClassName("selectorOptions"); i < boxClass.length; i++) output.boxes.push(boxClass[i]);
+elements.text  = [document.getElementById("choiceTitle"), document.getElementById("choiceSubtitle")];
+elements.boxes = [];
+for (let i=0, boxClass = document.getElementsByClassName("selectorOptions"); i < boxClass.length; i++) elements.boxes.push(boxClass[i]);
 
-const nav = {
+elements.nav = {
     left : document.getElementById("leftBotox"),
     right: document.getElementById("rightBotox"),
     up   : document.getElementById("topBotox"),
@@ -19,28 +14,39 @@ const nav = {
 
 const games = {
     name: {
-        l: ["Battle Sim", "PokeGuesser", "Super Guesser", "Tabletop"],
-        s: ["battle", "pkGuess", "spGuess", "ttrpg"],
+        l: ["Battle Sim", "PokeGuesser", "Free Guesser", "Tabletop"],
+        s: ["battle", "pkGuess", "freeGuess", "ttrpg"],
         c: undefined
     },
     mode: {
         l: 
         [
-            ["Easy Mode", "Hard Mode"],
-            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All Gens"],
+            ["Easy Mode", "Hard Mode", "Versus"],
+            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All"],
+            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All"],
             ["1st Edition"]
         ],
         s: 
         [
-            [0, 1],
+            [1, 2, "vs"],
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            [],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             [1]
         ],
         c: [0, 0]
     },
 
     display: function(change) {
+
+        // Create Children if necessary
+        if (!elements.mobile.swipe.children.length) {
+
+            for (let i=0; i < this.name.l.length; i++) {
+
+                elements.mobile.swipe.appendChild(document.createElement("div"));
+            }
+
+        }
 
         // Change Game Order if necessary
         if ("game" in change) {
@@ -77,23 +83,27 @@ const games = {
 
         }
 
+        // Display Text
+        const tgt = (innerWidth > 850) ? elements.text : elements.mobile.footer;
+        tgt[0].innerHTML = this.name.l[this.name.c];
+        tgt[1].innerHTML = this.mode.l[this.mode.c[0]][this.mode.c[1]];
 
-        for (let boxI=0, infoI = this.name.c-2; boxI < output.boxes.length; boxI++, infoI++) {
+        // Highlight Swipebox
+        elements.mobile.swipe.children[this.mode.c[0]].id = "current"
 
-            // Display Text
-            output.text[0].innerHTML = this.name.l[this.name.c];
-            output.text[1].innerHTML = this.mode.l[this.mode.c[0]][this.mode.c[1]];
+        for (let boxI=0, infoI = this.name.c-2; boxI < elements.boxes.length; boxI++, infoI++) {
 
             // Display Images
-            const path = (this.name.s[infoI] !== undefined) ? `images/homepage/${this.name.s[infoI]}.png` : `images/homepage/static.gif`;
-            output.boxes[boxI].style.backgroundImage = `url(${path})`;
+            const path = (this.name.s[infoI] !== undefined) ? `images/homepage/${((innerWidth <= 850) ? "mobile/" : "")}${this.name.s[infoI]}.png` : `images/homepage/static.gif`;
+            elements.boxes[boxI].style.backgroundImage = `url(${path})`;
         }
         
     },
 
     launch: function() {
-
-        location.href = `pages/${this.name.s[this.name.c]}.html?mode=${this.mode.s[this.mode.c[0]][this.mode.c[1]]}`;
+        console.log (innerWidth <= 850, elements.container.style.opacity < 1);
+        if (innerWidth <= 850 && elements.container.style.opacity < 1) { fade("out"); console.log("code runs") }
+        else location.href = `pages/${this.name.s[this.name.c]}.html?mode=${this.mode.s[this.mode.c[0]][this.mode.c[1]]}`;
     }
 }
 games.name.c = Math.floor((games.name.l.length-1)/2);
@@ -105,10 +115,10 @@ games.mode.c[0] = games.name.c;
 
 function fade(type) {
 
-    if (innerWidth > 850) clearTimeout(output.fadeTimer);
+    if (innerWidth > 850) clearTimeout(elements.fadeTimer);
 
-    if      (type == "in")  output.container.style.opacity = 1;
-    else if (type == "out") output.container.style.opacity = 0.1;
+    if      (type == "in")  { elements.container.style.opacity = 1; console.log("in"); }
+    else if (type == "out") { elements.container.style.opacity = 0.1; console.log("out"); }
 }
 
 
@@ -116,13 +126,13 @@ function fade(type) {
 /* Event Listeners */
 
 // Game Navigation
-nav.left.onclick  = () => games.display({game: -1});
-nav.right.onclick = () => games.display({game: 1});
-nav.up.onclick    = () => games.display({mode: -1});
-nav.down.onclick  = () => games.display({mode: 1});
+elements.nav.left.onclick  = () => games.display({game: -1});
+elements.nav.right.onclick = () => games.display({game: 1});
+elements.nav.up.onclick    = () => games.display({mode: -1});
+elements.nav.down.onclick  = () => games.display({mode: 1});
 
 // Launch Game
-output.boxes[2].addEventListener("click", () => games.launch());
+elements.boxes[2].addEventListener("click", () => games.launch());
 document.addEventListener("keydown", (event) => {
 
     if (event.key === "Enter") games.launch();
@@ -138,21 +148,27 @@ document.addEventListener("keydown", (event) => {
 // UI Fade In/Out
 document.addEventListener("mouseover", (event) => {
 
-    if (innerWidth > 850 && (output.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
+    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
 });
 document.addEventListener("mouseout", (event) => {
 
-    if (innerWidth > 850 && (output.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) output.fadeTimer = setTimeout(() => fade("out"), 1000);
+    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) elements.fadeTimer = setTimeout(() => fade("out"), 2000);
 });
 document.addEventListener("click", (event) => {
 
-    if (innerWidth <= 850) {
-
-        if (output.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target)) fade("in");
-        else fade("out");
-
+    if (innerWidth <= 850 && !elements.container.contains(event.target)) {
+        (elements.container.style.opacity == 1 || elements.container.style.opacity == "") ? fade("out") : fade("in");
     }
 });
+
+// Reload Games on Screen Change
+window.onresize = () => {
+
+    games.display({});
+    fade("in")
+}
+
+// Swipe Detection
 
 
 

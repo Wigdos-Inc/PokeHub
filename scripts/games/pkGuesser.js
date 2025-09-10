@@ -129,6 +129,7 @@ window.addEventListener("dataLoad", () => {
         prev : document.getElementById("prev"),
     
         input: document.getElementById("input"),
+        inbtn: document.getElementById("inputBtn"),
 
         info : document.getElementsByClassName("infoInner"),
 
@@ -234,7 +235,7 @@ window.addEventListener("dataLoad", () => {
                         this.display();
                     }
 
-                    // Use Hint / Burn Try
+                    // Use Hint
                     if (event.key === "h" && game.cHints[game.index] > 0) {
 
                         game.cHints[game.index]--;
@@ -247,6 +248,8 @@ window.addEventListener("dataLoad", () => {
                     }
 
                 }
+
+                // Submit Answer
                 else if (elements.input == document.activeElement && event.key === "Enter") this.validate();
             });
 
@@ -271,6 +274,9 @@ window.addEventListener("dataLoad", () => {
                 // Display/Hide Auto-Fill Box
                 if (this.input.contains(event.target)) this.autofill(true);
                 else if (!this.input.contains(event.target) && !this.info[1].contains(event.target)) this.autofill(false);
+
+                // Submit Answer
+                if (this.inbtn.contains(event.target)) this.validate();
             });
         },
 
@@ -470,17 +476,15 @@ window.addEventListener("dataLoad", () => {
             const value = this.input.replaceAll(" ", "").toLowerCase();
             const answer = game.pokemon.name.replaceAll(" ", "").toLowerCase();
 
-            let lock = false;
-
             // Check if answer is correct
-            if (value == answer) game.locker(false);
+            if (value == answer) game.locker(true);
             else {
 
                 if (game.cHints[game.index] > 0) {
                     game.cHints[game.index]--;
                     this.hintStuff();
                 }
-                else game.locker(true);
+                else game.locker(false);
 
             }
         }
@@ -538,10 +542,10 @@ window.addEventListener("dataLoad", () => {
             elements.display();
         },
 
-        locker: function(fail) {
+        locker: function(success) {
 
             // Determine Earned Points
-            const points = fail ? 0 : this.points.base[this.cHints[this.index]];
+            const points = success ? this.points.base[this.cHints[this.index]] : 0;
 
             // Add points to PP and Total
             this.points.pp[this.index] = points;
@@ -555,6 +559,25 @@ window.addEventListener("dataLoad", () => {
             document.getElementsByClassName("scorePK")[this.index].style.backgroundColor = this.points.color[this.cHints[this.index]];
             document.getElementsByClassName(`sPKL`)[this.index].innerHTML = `${this.index+1}. ${this.pokemon.name}`;
             document.getElementsByClassName(`sPKR`)[this.index].innerHTML = points;
+        },
+
+        validate: function() {
+
+            // Store User Input
+            const value = elements.input.replaceAll(" ", "").toLowerCase();
+            const answer = this.pokemon.name.replaceAll(" ", "").toLowerCase();
+
+            // Check if answer is correct
+            if (value == answer) this.locker(true);
+            else {
+
+                if (this.cHints[this.index] > 0) {
+                    this.cHints[this.index]--;
+                    elements.hintStuff();
+                }
+                else this.locker(false);
+
+            }
         }
     }
 
