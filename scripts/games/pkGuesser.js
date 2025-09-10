@@ -1,10 +1,6 @@
 // Wait for Data to be Loaded
 window.addEventListener("dataLoad", () => {
 
-    console.log("Data Loaded");
-
-
-
     const tColors = {
         normal  : "#aaaa99",
         fire    : "#ff4422",
@@ -239,18 +235,68 @@ window.addEventListener("dataLoad", () => {
                     if (event.key === "h" && game.cHints[game.index] > 0) {
 
                         game.cHints[game.index]--;
-
-                        console.log("Hint Used");
                         this.text.cHints.innerHTML = game.cHints[game.index];
 
                         this.hintStuff();
 
                     }
 
+                    if (event.key === "Enter") this.input.focus();
+
                 }
 
                 // Submit Answer
                 else if (elements.input == document.activeElement && event.key === "Enter") this.validate();
+
+                
+                // Autofill Entries
+                const fillEntries = document.getElementsByClassName("fillEntry");
+                if (fillEntries.length > 0) {
+
+                    // Check if a box is already selected
+                    let cBox = {
+                        b: undefined,
+                        i: undefined
+                    };
+                    for (let i=0; i < fillEntries.length; i++) {
+
+                        // Store Selected Box
+                        if (fillEntries[i].classList.contains("selected")) {
+                            cBox.b = fillEntries[i];
+                            cBox.i = i;
+                        }
+                    }
+
+                    if (event.key === "ArrowUp" || event.key === "ArrowDown") {
+
+                        if (!cBox.b) fillEntries[0].classList.add("selected");
+                        else {
+
+                            // Unselect Previous Box
+                            cBox.b.classList.remove("selected");
+
+                            // Select New Box
+                            if (event.key === "ArrowUp")   fillEntries[(cBox.i == 0 ? fillEntries.length-1 : cBox.i-1)].classList.add("selected");
+                            if (event.key === "ArrowDown") fillEntries[(cBox.i == fillEntries.length-1 ? 0 : cBox.i+1)].classList.add("selected");
+                        }
+
+                    }
+                    else if ((event.key === "Enter" || event.key === "ArrowRight") && cBox.b) {
+
+                        // Concat Autofill Value
+                        let concat = "";
+                        for (let i=0; i < cBox.b.childNodes.length; i++) {
+
+                            concat += cBox.b.childNodes[i].textContent;
+                        }
+
+                        // Autofill
+                        this.input.value = concat;
+                        this.autofill(false);
+
+                    }
+
+                }
             });
 
             this.input.addEventListener("input", (event) => this.autofill(true));
@@ -263,8 +309,6 @@ window.addEventListener("dataLoad", () => {
                 if ((this.text.cHints.contains(event.target) || this.text.tHints.contains(event.target)) && game.cHints[game.index] > 0) {
 
                     game.cHints[game.index]--;
-
-                    console.log("Hint Used");
                     this.text.cHints.innerHTML = game.cHints[game.index];
 
                     this.hintStuff();
@@ -276,12 +320,14 @@ window.addEventListener("dataLoad", () => {
                 else if (!this.input.contains(event.target) && !this.info[1].contains(event.target)) this.autofill(false);
 
                 // Submit Answer
-                if (this.inbtn.contains(event.target)) this.validate();
+                if (this.inbtn.contains(event.target) && !game.lock[game.index]) this.validate();
             });
         },
 
 
         display: function() {
+
+            clearTimeout(this.fTimer);
 
             // Reset Pokemon & Background
             this.img.flip(
@@ -296,14 +342,24 @@ window.addEventListener("dataLoad", () => {
             this.img.cb = undefined;
 
 
-            // Reset Input and Lock if needed
+            // Enable/Disable Input Field & Button as needed
             this.input.value = "";
-            if (game.lock[game.index]) this.input.disabled = true;
-            else this.input.disabled = false;
+            if (game.lock[game.index]) {
 
+                this.input.disabled = true;
+                this.input.style.filter = "brightness(0.5)";
+                this.inbtn.style.filter = "brightness(0.5)";
+                this.inbtn.classList.remove("iActive");
 
-            // Display Hint Count
-            this.text.cHints.innerHTML = game.cHints[game.index];
+            }
+            else {
+                
+                this.input.disabled = false;
+                this.input.style.filter = "brightness(1)";
+                this.inbtn.style.filter = "brightness(1)";
+                this.inbtn.classList.add("iActive");
+
+            }
 
             // Reset Type Box (type & bg)
             this.text.flip("???", ["backgroundColor", "black"]);
@@ -323,6 +379,10 @@ window.addEventListener("dataLoad", () => {
 
         hintStuff: function() {
 
+            // Display Hint Count
+            this.text.cHints.innerHTML = game.cHints[game.index];
+
+            // Apply First Hint (Reveal Typing)
             if (game.cHints[game.index] < 3) {
 
                 const text  = game.pokemon.type.length == 1 ? game.pokemon.type[0] : `${game.pokemon.type[0]} <br> ${game.pokemon.type[1]}`;
@@ -336,6 +396,7 @@ window.addEventListener("dataLoad", () => {
 
             }
 
+            // Apply Second Hint (Reveal Silhouette)
             if (game.cHints[game.index] < 2) {
 
                 const typeBG = tBackgrounds[`${game.pokemon.type[0].toLowerCase()}`];
@@ -354,6 +415,7 @@ window.addEventListener("dataLoad", () => {
 
             }
 
+            // Apply Final Hint (Reveal Pokemon)
             if (game.cHints[game.index] < 1) {
 
                 this.img.flip(
@@ -380,8 +442,8 @@ window.addEventListener("dataLoad", () => {
             const value = this.input.value.replaceAll(" ", "").toLowerCase();
 
             // Check if Autofill Applies
-            const length = game.cHints[game.index] == 3 ? 4 : 2;
-            if (create /* && game.cHints[game.index] < 3 */ && value.length > length) {
+            const length = /* game.cHints[game.index] == 3 ? 4 : 2 */ 2;
+            if (create && value.length > length) {
 
                 // Display Auto-Fill Box
                 this.info[1].style.opacity = 1;
@@ -409,7 +471,7 @@ window.addEventListener("dataLoad", () => {
                         let fOutput = window.pokedex[i].name.english;
                         let nOutput = "";
                         
-                        // Turn matching letters upper case
+                        // Highlight matching Letters
                         for (let l=0; l < cLetters; l++) nOutput += `<span class='highlight'>${fOutput[l]}</span>`;
                         nOutput += fOutput.slice(cLetters);
 
@@ -425,56 +487,17 @@ window.addEventListener("dataLoad", () => {
                     }
                 }
 
-                if (fillEntries.length > 0) {
-
-                    document.addEventListener("keydown", (e) => {
-
-
-                        // Check if a box is already selected
-                        let cBox = {
-                            b: undefined,
-                            i: undefined
-                        };
-                        for (let i=0; i < fillEntries.length; i++) {
-
-                            if (fillEntries[i].classList.contains("selected")) {
-                                cBox.b = fillEntries[i];
-                                cBox.i = i;
-                            }
-                        }
-
-                        if (e.key === "ArrowUp" || e.key === "ArrowDown") {
-                                
-                            if (!cBox.b) fillEntries[0].classList.add("selected");
-                            else {
-
-                                // Unselect Previous Box
-                                cBox.b.classList.remove("selected");
-
-                                // Select Correct Box
-                                if (e.key === "ArrowUp")   fillEntries[(cBox.i == 0 ? fillEntries.length-1 : cBox.i-1)];
-                                if (e.key === "ArrowDown") fillEntries[(cBox.i == fillEntries.length-1 ? 0 : cBox.i+1)];
-                            }
-
-                        }
-                        else if (e.key === "Enter" && cBox.b) {
-                            // Autofill
-                            this.input.value = cBox.b.innerHTML;
-                            this.autofill(false);
-                        }
-
-                        console.log(e.key, cBox.b);
-                    });
-
-                }
             } else this.info[1].style.opacity = 0;
         },
 
         validate: function() {
 
             // Store User Input
-            const value = this.input.replaceAll(" ", "").toLowerCase();
+            const value = this.input.value.replaceAll(" ", "").toLowerCase();
             const answer = game.pokemon.name.replaceAll(" ", "").toLowerCase();
+
+            // Empty Input Field
+            this.input.value = "";
 
             // Check if answer is correct
             if (value == answer) game.locker(true);
@@ -500,7 +523,7 @@ window.addEventListener("dataLoad", () => {
 
         points: {
             base : [1, 2, 3, 5],
-            color: ["pink", "orange", "yellow", "green"],
+            color: ["#ffc107", "#cddc39", "#8bc34a", "#4caf50"],
             total: 0,
             pp   : []
         },
@@ -544,21 +567,37 @@ window.addEventListener("dataLoad", () => {
 
         locker: function(success) {
 
+            // Disable Input
+            this.lock[this.index] = true;
+            elements.input.disabled = true;
+
+            elements.input.value = (success) ? `Correct! (used ${this.tHints-this.cHints[this.index]} hints)` : "Wrong!";
+            elements.input.style.filter = "brightness(0.5)";
+            
+            elements.inbtn.classList.remove("iActive");
+            elements.inbtn.style.filter = "brightness(0.5)";
+
+            elements.autofill(false);
+
             // Determine Earned Points
             const points = success ? this.points.base[this.cHints[this.index]] : 0;
+
+
+            // Display Guess in the List
+            document.getElementsByClassName("scorePK")[this.index].style.display = "flex";
+            document.getElementsByClassName("scorePK")[this.index].style.backgroundColor = (success) ? this.points.color[this.cHints[this.index]] : "#f44336";
+            document.getElementsByClassName(`sPKL`)[this.index].innerHTML = `${this.index+1}. ${this.pokemon.name}`;
+            document.getElementsByClassName(`sPKR`)[this.index].innerHTML = points;
 
             // Add points to PP and Total
             this.points.pp[this.index] = points;
             this.points.total += points;
+            document.getElementById("sTR").innerHTML = this.points.total;
 
-            this.lock[this.index] = true;
-            elements.input.disabled = true;
 
-            // Display Guess in the List
-            document.getElementsByClassName("scorePK")[this.index].style.display = "flex";
-            document.getElementsByClassName("scorePK")[this.index].style.backgroundColor = this.points.color[this.cHints[this.index]];
-            document.getElementsByClassName(`sPKL`)[this.index].innerHTML = `${this.index+1}. ${this.pokemon.name}`;
-            document.getElementsByClassName(`sPKR`)[this.index].innerHTML = points;
+            // Reveal Pokemon
+            this.cHints[this.index] = 0;
+            elements.hintStuff();
         },
 
         validate: function() {
