@@ -14,23 +14,23 @@ elements.nav = {
 
 const games = {
     name: {
-        l: ["Battle Sim", "PokeGuesser", "Super Guesser", "Tabletop"],
-        s: ["battle", "pkGuess", "spGuess", "ttrpg"],
+        l: ["Battle Sim", "PokeGuesser", "Free Guesser", "Tabletop"],
+        s: ["battle", "pkGuess", "freeGuess", "ttrpg"],
         c: undefined
     },
     mode: {
         l: 
         [
-            ["Easy Mode", "Hard Mode"],
-            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All Gens"],
-            [""],
+            ["Easy Mode", "Hard Mode", "Versus"],
+            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All"],
+            ["Gen 1", "Gen 2", "Gen 3", "Gen 4", "Gen 5", "Gen 6", "Gen 7", "Gen 8", "Gen 9", "All"],
             ["1st Edition"]
         ],
         s: 
         [
-            [0, 1],
+            [1, 2, "vs"],
             [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            [],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
             [1]
         ],
         c: [0, 0]

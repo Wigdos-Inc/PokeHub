@@ -86,6 +86,8 @@ main {
     transition: opacity 1s;
     background-color: #454344;
     opacity: 1;
+
+    border-radius: 50px;
 }
 
 #swipeBox {
