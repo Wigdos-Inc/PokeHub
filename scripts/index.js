@@ -39,14 +39,7 @@ const games = {
     display: function(change) {
 
         // Create Children if necessary
-        if (!elements.mobile.swipe.children.length) {
-
-            for (let i=0; i < this.name.l.length; i++) {
-
-                elements.mobile.swipe.appendChild(document.createElement("div"));
-            }
-
-        }
+        children(this.name.l.length);
 
         // Change Game Order if necessary
         if ("game" in change) {
@@ -88,8 +81,8 @@ const games = {
         tgt[0].innerHTML = this.name.l[this.name.c];
         tgt[1].innerHTML = this.mode.l[this.mode.c[0]][this.mode.c[1]];
 
-        // Highlight Swipebox
-        elements.mobile.swipe.children[this.mode.c[0]].id = "current"
+        // Highlight SwipeBox
+        highlight(this.mode.c[0]);
 
         for (let boxI=0, infoI = this.name.c-2; boxI < elements.boxes.length; boxI++, infoI++) {
 
@@ -132,10 +125,13 @@ elements.nav.up.onclick    = () => games.display({mode: -1});
 elements.nav.down.onclick  = () => games.display({mode: 1});
 
 // Launch Game
-elements.boxes[2].addEventListener("click", () => games.launch());
+elements.boxes[2].addEventListener("click", () => {
+    
+    if (!swipeStorage.active) games.launch()
+});
 document.addEventListener("keydown", (event) => {
 
-    if (event.key === "Enter") games.launch();
+    if (event.key === "Enter" && !swipeStorage.active) games.launch();
 
     // Game Nav Shortcut
     else if (event.key === "ArrowLeft")  games.display({game: -1});

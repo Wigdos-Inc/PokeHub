@@ -104,6 +104,8 @@ main {
     display: none;
     justify-content: center;
     align-items: center;
+
+    overflow: hidden;
 }
 #swipeBox div {
     width: 100%;
