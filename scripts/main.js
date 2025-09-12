@@ -1,20 +1,52 @@
 let elements = {
     main     : document.getElementsByTagName("main")[0],
     container: document.getElementById("contentDiv"),
-    fadeTimer: undefined,
     mobile   : {
-        footer: [document.getElementById("footTitle"), document.getElementById("footSub")],
-        swipe : document.getElementById("swipeBox")
+        footer: undefined,
+        swipe : undefined,
+
+        ini: function() {
+
+            // Create Footer
+            const footer = document.body.appendChild(document.createElement("footer"));
+            this.footer = [footer.appendChild(document.createElement("div")), footer.appendChild(document.createElement("div"))];
+            this.footer[0].id = "footTitle";
+            this.footer[1].id = "footSub";
+
+            // Create Swipe Box
+            this.swipe = elements.main.appendChild(document.createElement("div"));
+            this.swipe.id = "swipeBox";
+        }
     }
 }
+let fadeTimer = undefined;
+elements.mobile.ini();
 
+
+// UI Fade In/Out
 function fade(type) {
 
-    if (innerWidth > 850) clearTimeout(elements.fadeTimer);
+    if (innerWidth > 850) clearTimeout(fadeTimer);
 
     if      (type == "in")  elements.container.style.opacity = 1;
     else if (type == "out") elements.container.style.opacity = 0.1;
 }
+
+document.addEventListener("mouseover", (event) => {
+
+    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
+});
+document.addEventListener("mouseout", (event) => {
+
+    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) elements.fadeTimer = setTimeout(() => fade("out"), 2000);
+});
+document.addEventListener("click", (event) => {
+
+    if (innerWidth <= 850 && !elements.container.contains(event.target)) {
+        (elements.container.style.opacity == 1 || elements.container.style.opacity == "") ? fade("out") : fade("in");
+    }
+});
+
 
 function highlight(boxI) {
 
@@ -28,6 +60,7 @@ function highlight(boxI) {
     elements.mobile.swipe.children[boxI].id = "current";
 }
 
+
 function children(amount) {
 
     if (!elements.mobile.swipe.children.length) {
@@ -39,6 +72,7 @@ function children(amount) {
 
     }
 }
+
 
 let swipeStorage = {
     startX: 0,
