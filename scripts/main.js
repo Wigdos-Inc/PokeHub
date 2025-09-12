@@ -8,6 +8,14 @@ let elements = {
     }
 }
 
+function fade(type) {
+
+    if (innerWidth > 850) clearTimeout(elements.fadeTimer);
+
+    if      (type == "in")  elements.container.style.opacity = 1;
+    else if (type == "out") elements.container.style.opacity = 0.1;
+}
+
 function highlight(boxI) {
 
     // Remove old highlights
@@ -47,8 +55,6 @@ let swipeStorage = {
         const diffX = this.endX - this.startX;
         const diffY = this.endY - this.startY;
 
-        console.log(this.active, this.dir.current, Math.abs(diffX))
-
         if (this.active && this.dir.current == "hor" && Math.abs(diffX) > 80) {
 
             (diffX > 0) ? games.display({ game: -1 }) : games.display({ game: 1 });
@@ -86,12 +92,12 @@ elements.main.addEventListener("touchmove", (e) => {
     // Determine Swipe Direction
     if (!swipeStorage.dir.lock) {
 
-        console.log(moveX, moveY);
-
         if (moveX > 20 || moveY > 20) {
+
             swipeStorage.dir.lock = true;
             swipeStorage.dir.current = (moveX >= moveY) ? "hor" : "ver";
             swipeStorage.active = true;
+
         }
 
     }
@@ -102,5 +108,4 @@ elements.main.addEventListener("touchmove", (e) => {
     }
 
 });
-
 elements.main.addEventListener("touchend", (e) => swipeStorage.swipe());

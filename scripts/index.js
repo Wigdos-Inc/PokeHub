@@ -94,25 +94,12 @@ const games = {
     },
 
     launch: function() {
-        console.log (innerWidth <= 850, elements.container.style.opacity < 1);
-        if (innerWidth <= 850 && elements.container.style.opacity < 1) { fade("out"); console.log("code runs") }
-        else location.href = `pages/${this.name.s[this.name.c]}.html?mode=${this.mode.s[this.mode.c[0]][this.mode.c[1]]}`;
+        
+        location.href = `pages/${this.name.s[this.name.c]}.html?mode=${this.mode.s[this.mode.c[0]][this.mode.c[1]]}`;
     }
 }
 games.name.c = Math.floor((games.name.l.length-1)/2);
 games.mode.c[0] = games.name.c;
-
-
-
-/* Functions */
-
-function fade(type) {
-
-    if (innerWidth > 850) clearTimeout(elements.fadeTimer);
-
-    if      (type == "in")  { elements.container.style.opacity = 1; console.log("in"); }
-    else if (type == "out") { elements.container.style.opacity = 0.1; console.log("out"); }
-}
 
 
 
@@ -127,7 +114,14 @@ elements.nav.down.onclick  = () => games.display({mode: 1});
 // Launch Game
 elements.boxes[2].addEventListener("click", () => {
     
-    if (!swipeStorage.active) games.launch()
+    if (!swipeStorage.active) games.launch();
+});
+elements.boxes[2].addEventListener("touchend", () => {
+
+    if (!swipeStorage.active && (elements.container.style.opacity == 1 || elements.container.style.opacity == "")) {
+        games.launch();
+        console.log("code runs");
+    }
 });
 document.addEventListener("keydown", (event) => {
 
