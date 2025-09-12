@@ -40,23 +40,29 @@ let swipeStorage = {
     active: false,
     dir   : {
         current: undefined,
-        lock   : undefined
+        lock   : false
     },
     swipe : function() {
 
         const diffX = this.endX - this.startX;
         const diffY = this.endY - this.startY;
 
-        if (this.active && this.dir.current == "hor" && Math.abs(diffX) > 50) {
+        console.log(this.active, this.dir.current, Math.abs(diffX))
 
-            (diffX > 0) ? games.display({  }) : games.display({  });
+        if (this.active && this.dir.current == "hor" && Math.abs(diffX) > 80) {
 
-        }
-        else if (this.active && this.dir.current == "ver" && Math.abs(diffY) > 50) {
-
-            (diffY > 0) ? games.display({  }) : games.display({  });
+            (diffX > 0) ? games.display({ game: -1 }) : games.display({ game: 1 });
 
         }
+        else if (this.active && this.dir.current == "ver" && Math.abs(diffY) > 80) {
+
+            (diffY > 0) ? games.display({ mode: 1 }) : games.display({ mode: -1 });
+
+        }
+
+        // Reset Locks
+        this.dir.lock = false;
+        this.dir.current = undefined;
     }
 }
 
@@ -69,12 +75,18 @@ elements.main.addEventListener("touchstart", (e) => {
 
 elements.main.addEventListener("touchmove", (e) => {
 
+    // Store Latest Position
+    swipeStorage.endX = e.touches[0].clientX;
+    swipeStorage.endY = e.touches[0].clientY;
+
     // Calculate Distance Moved
     const moveX = Math.abs(e.touches[0].clientX - swipeStorage.startX);
     const moveY = Math.abs(e.touches[0].clientY - swipeStorage.startY);
 
     // Determine Swipe Direction
     if (!swipeStorage.dir.lock) {
+
+        console.log(moveX, moveY);
 
         if (moveX > 20 || moveY > 20) {
             swipeStorage.dir.lock = true;
@@ -91,11 +103,4 @@ elements.main.addEventListener("touchmove", (e) => {
 
 });
 
-elements.main.addEventListener("touchend", (e) => {
-
-    // Store End
-    swipeStorage.endX = e.touches[0].clientX;
-    swipeStorage.endY = e.touches[0].clientY;
-
-    swipeStorage.swipe();
-});
+elements.main.addEventListener("touchend", (e) => swipeStorage.swipe());
