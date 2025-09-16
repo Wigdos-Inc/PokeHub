@@ -118,14 +118,12 @@ elements.boxes[2].addEventListener("click", () => {
 });
 elements.boxes[2].addEventListener("touchend", () => {
 
-    if (!swipeStorage.active && (elements.container.style.opacity == 1 || elements.container.style.opacity == "")) {
-        games.launch();
-        console.log("code runs");
-    }
+    console.log(elements.cBox.style.opacity, (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == ""), swipeStorage.active);
+    if (!swipeStorage.active && (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "")) games.launch();
 });
 document.addEventListener("keydown", (event) => {
 
-    if (event.key === "Enter" && !swipeStorage.active) games.launch();
+    if (event.key === "Enter") (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? games.launch() : fade("in");
 
     // Game Nav Shortcut
     else if (event.key === "ArrowLeft")  games.display({game: -1});
@@ -136,18 +134,10 @@ document.addEventListener("keydown", (event) => {
 
 
 // UI Fade In/Out
-document.addEventListener("mouseover", (event) => {
-
-    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
-});
-document.addEventListener("mouseout", (event) => {
-
-    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) elements.fadeTimer = setTimeout(() => fade("out"), 2000);
-});
 document.addEventListener("click", (event) => {
 
-    if (innerWidth <= 850 && !elements.container.contains(event.target)) {
-        (elements.container.style.opacity == 1 || elements.container.style.opacity == "") ? fade("out") : fade("in");
+    if (innerWidth <= 850 && !elements.cBox.contains(event.target)) {
+        (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
     }
 });
 

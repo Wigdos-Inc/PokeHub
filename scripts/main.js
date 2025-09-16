@@ -1,6 +1,7 @@
 let elements = {
+    header   : document.getElementsByTagName("header")[0],
     main     : document.getElementsByTagName("main")[0],
-    container: document.getElementById("contentDiv"),
+    cBox     : document.getElementById("contentDiv"),
     mobile   : {
         footer: undefined,
         swipe : undefined,
@@ -28,23 +29,23 @@ function fade(type) {
 
     if (innerWidth > 850) clearTimeout(fadeTimer);
 
-    if      (type == "in")  elements.container.style.opacity = 1;
-    else if (type == "out") elements.container.style.opacity = 0.1;
+    if      (type == "in")  elements.cBox.style.opacity = 1;
+    else if (type == "out") elements.cBox.style.opacity = 0.1;
 }
 
 document.addEventListener("mouseover", (event) => {
 
-    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) fade("in");
+    // Fade In when user hovers over contentDiv or Header
+    if (innerWidth > 850 && (elements.cBox.contains(event.target) || elements.header.contains(event.target))) fade("in");
 });
 document.addEventListener("mouseout", (event) => {
 
-    if (innerWidth > 850 && (elements.container.contains(event.target) || document.getElementsByTagName("header")[0].contains(event.target))) elements.fadeTimer = setTimeout(() => fade("out"), 2000);
+    // Fade Out when user stops hovering over contentDiv or Header
+    if (innerWidth > 850 && (elements.cBox.contains(event.target) || elements.header.contains(event.target))) fadeTimer = setTimeout(() => fade("out"), 4000);
 });
 document.addEventListener("click", (event) => {
 
-    if (innerWidth <= 850 && !elements.container.contains(event.target)) {
-        (elements.container.style.opacity == 1 || elements.container.style.opacity == "") ? fade("out") : fade("in");
-    }
+    if (!elements.cBox.contains(event.target) && !elements.header.contains(event.target)) (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
 });
 
 
@@ -103,6 +104,7 @@ let swipeStorage = {
         // Reset Locks
         this.dir.lock = false;
         this.dir.current = undefined;
+        this.active = false;
     }
 }
 
@@ -137,9 +139,12 @@ elements.main.addEventListener("touchmove", (e) => {
     }
     else {
 
-        // Visual Representation
+        
 
     }
 
 });
-elements.main.addEventListener("touchend", (e) => swipeStorage.swipe());
+elements.main.addEventListener("touchend", () => {
+    
+    swipeStorage.active ? swipeStorage.swipe() : (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
+});
