@@ -18,7 +18,7 @@ let elements = {
             this.swipe = elements.main.appendChild(document.createElement("div"));
             this.swipe.id = "swipeBox";
         }
-    }
+    },
 }
 let fadeTimer = undefined;
 elements.mobile.ini();
@@ -75,6 +75,9 @@ function children(amount) {
 }
 
 
+
+let navItems = {}
+
 let swipeStorage = {
     startX: 0,
     startY: 0,
@@ -85,26 +88,69 @@ let swipeStorage = {
         current: undefined,
         lock   : false
     },
-    swipe : function() {
 
-        const diffX = this.endX - this.startX;
-        const diffY = this.endY - this.startY;
+    reset: function() {
 
-        if (this.active && this.dir.current == "hor" && Math.abs(diffX) > 80) {
-
-            (diffX > 0) ? games.display({ game: -1 }) : games.display({ game: 1 });
-
-        }
-        else if (this.active && this.dir.current == "ver" && Math.abs(diffY) > 80) {
-
-            (diffY > 0) ? games.display({ mode: 1 }) : games.display({ mode: -1 });
-
-        }
-
-        // Reset Locks
         this.dir.lock = false;
         this.dir.current = undefined;
         this.active = false;
+    },
+    swipe : function() {
+
+        const e = elements.cBox;
+
+        function trans(on) {
+
+            e.style.transition = on ? "transform 0.2s" : "none";
+        }
+        function center() {
+
+            trans(true);
+            e.style.transform = "translate(0,0)";
+
+            e.ontransitionend = () => {
+
+                trans(false);
+                swipeStorage.reset();
+            }
+        }
+
+        // Store Swipe Distance
+        const diff = {
+            x: this.endX - this.startX,
+            y: this.endY - this.startY
+        }
+        const dir = this.dir.current;
+
+        if (this.active && Math.abs(diff[dir]) > 80) {
+
+            // Prepare Navigation
+            const p = (diff[dir] > 0) 
+            ? (dir == "x") ? { game: -1 } : { mode: -1 }
+            : (dir == "x") ? { game:  1 } : { mode:  1 }
+            ;
+
+            // Animate contentDiv
+            trans(true);
+            e.style.transform = `translate${dir.toUpperCase()}(${(diff[dir] > 0 ? 1 : -1) * (dir == "x" ? innerWidth : innerHeight)})`;
+
+            e.ontransitionend = () => {
+
+                console.log("code runs")
+
+                // Teleport contentDiv to other side of page
+                trans(false);
+                e.style.transform = `translate${dir.toUpperCase()}(${(diff[dir] > 0 ? 1 : -1)*-1 * (dir == "x" ? innerWidth : innerHeight)})`;
+
+                // Execute Navigation
+                navItems.display(p);
+
+                // Re-Center
+                center();
+            }
+
+        }
+        else center();
     }
 }
 
@@ -122,16 +168,23 @@ elements.main.addEventListener("touchmove", (e) => {
     swipeStorage.endY = e.touches[0].clientY;
 
     // Calculate Distance Moved
-    const moveX = Math.abs(e.touches[0].clientX - swipeStorage.startX);
-    const moveY = Math.abs(e.touches[0].clientY - swipeStorage.startY);
+    const move = {
+        x: e.touches[0].clientX - swipeStorage.startX,
+        y: e.touches[0].clientY - swipeStorage.startY,
+
+        abs: function(t) {
+
+            return Math.abs(this[t]);
+        }
+    }
 
     // Determine Swipe Direction
     if (!swipeStorage.dir.lock) {
 
-        if (moveX > 20 || moveY > 20) {
+        if (move.abs("x") > 20 || move.abs("y") > 20) {
 
             swipeStorage.dir.lock = true;
-            swipeStorage.dir.current = (moveX >= moveY) ? "hor" : "ver";
+            swipeStorage.dir.current = (move.abs("x") >= move.abs("y")) ? "x" : "y";
             swipeStorage.active = true;
 
         }
@@ -139,7 +192,9 @@ elements.main.addEventListener("touchmove", (e) => {
     }
     else {
 
-        
+        // Animate Swipe
+        const dir = swipeStorage.dir.current;
+        elements.cBox.style.transform = `translate${dir.toUpperCase()}(${move[dir]}px)`;
 
     }
 

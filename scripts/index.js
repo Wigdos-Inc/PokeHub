@@ -12,7 +12,7 @@ elements.nav = {
 }
 
 
-const games = {
+navItems = {
     name: {
         l: ["Battle Sim", "PokeGuesser", "Free Guesser", "Tabletop"],
         s: ["battle", "pkGuess", "freeGuess", "ttrpg"],
@@ -98,38 +98,38 @@ const games = {
         location.href = `pages/${this.name.s[this.name.c]}.html?mode=${this.mode.s[this.mode.c[0]][this.mode.c[1]]}`;
     }
 }
-games.name.c = Math.floor((games.name.l.length-1)/2);
-games.mode.c[0] = games.name.c;
+navItems.name.c = Math.floor((navItems.name.l.length-1)/2);
+navItems.mode.c[0] = navItems.name.c;
 
 
 
 /* Event Listeners */
 
 // Game Navigation
-elements.nav.left.onclick  = () => games.display({game: -1});
-elements.nav.right.onclick = () => games.display({game: 1});
-elements.nav.up.onclick    = () => games.display({mode: -1});
-elements.nav.down.onclick  = () => games.display({mode: 1});
+elements.nav.left.onclick  = () => navItems.display({game: -1});
+elements.nav.right.onclick = () => navItems.display({game: 1});
+elements.nav.up.onclick    = () => navItems.display({mode: -1});
+elements.nav.down.onclick  = () => navItems.display({mode: 1});
 
 // Launch Game
 elements.boxes[2].addEventListener("click", () => {
     
-    if (!swipeStorage.active) games.launch();
+    if (!swipeStorage.active) navItems.launch();
 });
 elements.boxes[2].addEventListener("touchend", () => {
 
     console.log(elements.cBox.style.opacity, (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == ""), swipeStorage.active);
-    if (!swipeStorage.active && (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "")) games.launch();
+    if (!swipeStorage.active && (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "")) navItems.launch();
 });
 document.addEventListener("keydown", (event) => {
 
-    if (event.key === "Enter") (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? games.launch() : fade("in");
+    if (event.key === "Enter") (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? navItems.launch() : fade("in");
 
     // Game Nav Shortcut
-    else if (event.key === "ArrowLeft")  games.display({game: -1});
-    else if (event.key === "ArrowRight") games.display({game: 1});
-    else if (event.key === "ArrowUp")    games.display({mode: -1});
-    else if (event.key === "ArrowDown")  games.display({mode: 1});
+    else if (event.key === "ArrowLeft")  navItems.display({game: -1});
+    else if (event.key === "ArrowRight") navItems.display({game: 1});
+    else if (event.key === "ArrowUp")    navItems.display({mode: -1});
+    else if (event.key === "ArrowDown")  navItems.display({mode: 1});
 });
 
 
@@ -144,8 +144,8 @@ document.addEventListener("click", (event) => {
 // Reload Games on Screen Change
 window.onresize = () => {
 
-    games.display({});
-    fade("in")
+    navItems.display({});
+    fade("in");
 }
 
 // Swipe Detection
@@ -154,4 +154,4 @@ window.onresize = () => {
 
 /* Startup */
 
-games.display({});
+navItems.display({});
