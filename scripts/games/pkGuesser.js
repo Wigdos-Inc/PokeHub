@@ -620,6 +620,16 @@ window.addEventListener("dataLoad", () => {
         }
     }
 
+    navItems = {
+        name: ["Pokemon", "Dex Entry", "List"],
+        c: 0,
+
+        display: function(change) {
+
+            children(game.total[game.gen]);
+        }
+    }
+
 
 
     // Fire Setup Functions
@@ -627,4 +637,5 @@ window.addEventListener("dataLoad", () => {
 
     elements.ini();
     game.ini();
+    navItems.display();
 });

@@ -1,15 +1,16 @@
 /* Objects */
 
-elements.text  = [document.getElementById("choiceTitle"), document.getElementById("choiceSubtitle")];
-elements.boxes = [];
-for (let i=0, boxClass = document.getElementsByClassName("selectorOptions"); i < boxClass.length; i++) elements.boxes.push(boxClass[i]);
-
-elements.nav = {
-    left : document.getElementById("leftBotox"),
-    right: document.getElementById("rightBotox"),
-    up   : document.getElementById("topBotox"),
-    down : document.getElementById("bottomBotox")
+const elements = {
+    text: [document.getElementById("choiceTitle"), document.getElementById("choiceSubtitle")],
+    boxes: [],
+    nav: {
+        left : document.getElementById("leftBotox"),
+        right: document.getElementById("rightBotox"),
+        up   : document.getElementById("topBotox"),
+        down : document.getElementById("bottomBotox")
+    }
 }
+for (let i=0, boxClass = document.getElementsByClassName("selectorOptions"); i < boxClass.length; i++) elements.boxes.push(boxClass[i]);
 
 
 navItems = {
@@ -77,7 +78,7 @@ navItems = {
         }
 
         // Display Text
-        const tgt = (innerWidth > 850) ? elements.text : elements.mobile.footer;
+        const tgt = (innerWidth > 850) ? elements.text : mainE.mobile.footer;
         tgt[0].innerHTML = this.name.l[this.name.c];
         tgt[1].innerHTML = this.mode.l[this.mode.c[0]][this.mode.c[1]];
 

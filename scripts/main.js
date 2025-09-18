@@ -1,4 +1,4 @@
-let elements = {
+const mainE = {
     header   : document.getElementsByTagName("header")[0],
     main     : document.getElementsByTagName("main")[0],
     cBox     : document.getElementById("contentDiv"),
@@ -15,13 +15,15 @@ let elements = {
             this.footer[1].id = "footSub";
 
             // Create Swipe Box
-            this.swipe = elements.main.appendChild(document.createElement("div"));
+            this.swipe = mainE.main.appendChild(document.createElement("div"));
             this.swipe.id = "swipeBox";
         }
     },
 }
 let fadeTimer = undefined;
-elements.mobile.ini();
+mainE.mobile.ini();
+
+let navItems = {};
 
 
 // UI Fade In/Out
@@ -29,54 +31,59 @@ function fade(type) {
 
     if (innerWidth > 850) clearTimeout(fadeTimer);
 
-    if      (type == "in")  elements.cBox.style.opacity = 1;
-    else if (type == "out") elements.cBox.style.opacity = 0.1;
+    if      (type == "in")  mainE.cBox.style.opacity = 1;
+    else if (type == "out") mainE.cBox.style.opacity = 0.1;
 }
 
 document.addEventListener("mouseover", (event) => {
 
     // Fade In when user hovers over contentDiv or Header
-    if (innerWidth > 850 && (elements.cBox.contains(event.target) || elements.header.contains(event.target))) fade("in");
+    if (innerWidth > 850 && (mainE.cBox.contains(event.target) || mainE.header.contains(event.target))) fade("in");
 });
 document.addEventListener("mouseout", (event) => {
 
     // Fade Out when user stops hovering over contentDiv or Header
-    if (innerWidth > 850 && (elements.cBox.contains(event.target) || elements.header.contains(event.target))) fadeTimer = setTimeout(() => fade("out"), 4000);
+    if (innerWidth > 850 && (mainE.cBox.contains(event.target) || mainE.header.contains(event.target))) fadeTimer = setTimeout(() => fade("out"), 4000);
 });
 document.addEventListener("click", (event) => {
 
-    if (!elements.cBox.contains(event.target) && !elements.header.contains(event.target)) (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
+    if (!mainE.cBox.contains(event.target) && !mainE.header.contains(event.target)) (mainE.cBox.style.opacity == 1 || mainE.cBox.style.opacity == "") ? fade("out") : fade("in");
 });
 
 
-function highlight(boxI) {
+function highlight(boxI, total) {
 
-    // Remove old highlights
-    for (let i=0; i < elements.mobile.swipe.children.length; i++) {
+    if (mainE.mobile.swipe.children) {
 
-        elements.mobile.swipe.children[i].id = "";
+        // Remove old highlights
+        for (let i=0; i < mainE.mobile.swipe.children.length; i++) {
+
+            mainE.mobile.swipe.children[i].id = "";
+        }
+
+        // Set new highlight
+        mainE.mobile.swipe.children[boxI].id = "current";
+
     }
-
-    // Set new highlight
-    elements.mobile.swipe.children[boxI].id = "current";
+    else mainE.mobile.swipe.innerHTML = boxI;
 }
 
 
 function children(amount) {
 
-    if (!elements.mobile.swipe.children.length) {
+    if (!mainE.mobile.swipe.children.length) {
 
-        for (let i=0; i < amount; i++) {
+        if (amount < 10) {
 
-            elements.mobile.swipe.appendChild(document.createElement("div"));
-        }
+            for (let i=0; i < amount; i++) {
+
+                mainE.mobile.swipe.appendChild(document.createElement("div"));
+            }
+
+        } else mainE.mobile.swipe.innerHTML = 1;
 
     }
 }
-
-
-
-let navItems = {}
 
 let swipeStorage = {
     startX: 0,
@@ -97,7 +104,7 @@ let swipeStorage = {
     },
     swipe : function() {
 
-        const e = elements.cBox;
+        const e = mainE.cBox;
 
         function trans(on) {
 
@@ -136,8 +143,6 @@ let swipeStorage = {
 
             e.ontransitionend = () => {
 
-                console.log("code runs")
-
                 // Teleport contentDiv to other side of page
                 trans(false);
                 e.style.transform = `translate${dir.toUpperCase()}(${(diff[dir] > 0 ? 1 : -1)*-1 * (dir == "x" ? innerWidth : innerHeight)}px)`;
@@ -154,14 +159,14 @@ let swipeStorage = {
     }
 }
 
-elements.main.addEventListener("touchstart", (e) => {
+mainE.main.addEventListener("touchstart", (e) => {
 
     // Store Start Location
     swipeStorage.startX = e.touches[0].clientX;
     swipeStorage.startY = e.touches[0].clientY;
 });
 
-elements.main.addEventListener("touchmove", (e) => {
+mainE.main.addEventListener("touchmove", (e) => {
 
     // Store Latest Position
     swipeStorage.endX = e.touches[0].clientX;
@@ -183,7 +188,7 @@ elements.main.addEventListener("touchmove", (e) => {
     if (dir) {
 
         // Animate Swipe
-        elements.cBox.style.transform = `translate${dir.toUpperCase()}(${move[dir]}px)`;
+        mainE.cBox.style.transform = `translate${dir.toUpperCase()}(${move[dir]}px)`;
 
     }
     else if (move.abs("x") > 20 || move.abs("y") > 20) {
@@ -195,9 +200,9 @@ elements.main.addEventListener("touchmove", (e) => {
     }
 
 });
-elements.main.addEventListener("touchend", () => {
+mainE.main.addEventListener("touchend", () => {
     
     swipeStorage.active 
     ? swipeStorage.swipe() 
-    : (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
+    : (mainE.cBox.style.opacity == 1 || mainE.cBox.style.opacity == "") ? fade("out") : fade("in");
 });
