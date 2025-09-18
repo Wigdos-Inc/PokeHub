@@ -203,3 +203,71 @@ elements.main.addEventListener("touchend", () => {
     
     swipeStorage.active ? swipeStorage.swipe() : (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
 });
+
+
+/* 
+
+elements.main.addEventListener("touchend", () => {
+    // Always attempt to complete the swipe if a direction was locked
+    if (swipeStorage.dir.current !== undefined) {
+        swipeStorage.swipe();
+    } else {
+        (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
+    }
+});
+
+swipe : function() {
+    const e = elements.cBox;
+
+    function trans(on) {
+        e.style.transition = on ? "transform 0.2s" : "none";
+    }
+    function center() {
+        trans(true);
+        e.style.transform = "translate(0,0)";
+        e.ontransitionend = () => {
+            trans(false);
+            swipeStorage.reset();
+        }
+    }
+
+    // Store Swipe Distance
+    const diff = {
+        x: this.endX - this.startX,
+        y: this.endY - this.startY
+    }
+    const dir = this.dir.current;
+
+    if (this.dir.current !== undefined) {
+        if (Math.abs(diff[dir]) > 80) {
+            // Prepare Navigation
+            const p = (diff[dir] > 0) 
+                ? (dir == "x") ? { game: -1 } : { mode: -1 }
+                : (dir == "x") ? { game:  1 } : { mode:  1 };
+
+            // Animate contentDiv
+            trans(true);
+            e.style.transform = `translate${dir.toUpperCase()}(${(diff[dir] > 0 ? 1 : -1) * (dir == "x" ? innerWidth : innerHeight)}px)`;
+
+            e.ontransitionend = () => {
+                // Teleport contentDiv to other side of page
+                trans(false);
+                e.style.transform = `translate${dir.toUpperCase()}(${(diff[dir] > 0 ? 1 : -1)*-1 * (dir == "x" ? innerWidth : innerHeight)}px)`;
+
+                // Execute Navigation
+                navItems.display(p);
+
+                // Re-Center
+                center();
+            };
+        } else {
+            // Not enough swipe distance, just recenter
+            center();
+        }
+    } else {
+        // No direction locked, just recenter
+        center();
+    }
+}
+
+*/
