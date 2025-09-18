@@ -48,6 +48,9 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    position: relative;
+    z-index: 10;
 }
 header div {
     display: flex;
@@ -94,6 +97,7 @@ main {
     opacity: 1;
 
     border-radius: 50px;
+    z-index: 0;
 }
 
 #swipeBox {
@@ -132,6 +136,9 @@ footer {
     justify-content: center;
     align-items: center;
     gap: 10px;
+
+    position: relative;
+    z-index: 10;
 }
 footer div {
     text-align: center;
