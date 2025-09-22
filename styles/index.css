@@ -1,5 +1,5 @@
 body {
-    background-image: url(../images/bg/background.jpg);
+    background-image: url(../images/homepage/bg/background.jpg);
 }
 
 #contentDiv {
@@ -194,7 +194,7 @@ body {
 @media only screen and (max-width: 850px) {
 
     body {
-        background-image: url(../images/bg/background_phone.jpg);
+        background-image: url(../images/homepage/bg/background_phone.jpg);
     }
     
 

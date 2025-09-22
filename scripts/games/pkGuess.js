@@ -1,48 +1,13 @@
 // Wait for Data to be Loaded
 window.addEventListener("dataLoad", () => {
 
-    const tColors = {
-        normal  : "#aaaa99",
-        fire    : "#ff4422",
-        water   : "#3399ff",
-        electric: "#ffcc33",
-        grass   : "#77cc55",
-        ice     : "#66ccff",
-        fighting: "#bb5544",
-        poison  : "#aa5599",
-        ground  : "#ddbb55",
-        flying  : "#8899ff",
-        psychic : "#ff5599",
-        bug     : "#aabb22",
-        rock    : "#bbaa66",
-        ghost   : "#6666bb",
-        dragon  : "#7766ee",
-        dark    : "#775544",
-        steel   : "#aaaabb",
-        fairy   : "#ee99ee"
+    // Store Search Params
+    const params = {
+        list: new URLSearchParams(window.location.search)
     }
-    const tBackgrounds = {
-        
-        normal  : ["city", "route", "forest", "meadow"],
-        fire    : ["desert", "volcano", "mountain"],
-        water   : ["shore", "sea", "beach", "river"],
-        electric: ["thunderplains", "route"],
-        grass   : ["meadow", "forest"],
-        ice     : ["ice"],
-        fighting: ["meadow", "mountain", "city"],
-        poison  : ["cave", "desert", "mountain", "forest"],
-        ground  : ["mountain", "cave", "route", "desert"],
-        flying  : ["meadow", "forest", "route", "mountain", "city"],
-        psychic : ["city", "space", "spl"],
-        bug     : ["forest", "meadow"],
-        rock    : ["mountain", "cave"],
-        ghost   : ["cave", "spl", "forest", "city"],
-        dragon  : ["space", "mountain"],
-        dark    : ["city", "forest", "cave"],
-        steel   : ["mountain", "cave"],
-        fairy   : ["space"]
-    }
+    for (const [key, value] of params.list.entries()) params[key] = value;
     
+
     const elements = {
         img  : {
             bg     : document.getElementById("guessIconBG"),
@@ -389,7 +354,7 @@ window.addEventListener("dataLoad", () => {
                 const color = 
                 [
                     game.pokemon.type.length == 1 ? "backgroundColor" : "backgroundImage",
-                    game.pokemon.type.length == 1 ?  tColors[`${game.pokemon.type[0].toLowerCase()}`]: `linear-gradient(to bottom, ${tColors[`${game.pokemon.type[0].toLowerCase()}`]}, ${tColors[`${game.pokemon.type[1].toLowerCase()}`]}`,
+                    game.pokemon.type.length == 1 ?  type.color[`${game.pokemon.type[0].toLowerCase()}`]: `linear-gradient(to bottom, ${type.color[`${game.pokemon.type[0].toLowerCase()}`]}, ${type.color[`${game.pokemon.type[1].toLowerCase()}`]}`,
                 ]
 
                 this.text.flip(text, color);
@@ -399,7 +364,7 @@ window.addEventListener("dataLoad", () => {
             // Apply Second Hint (Reveal Silhouette)
             if (game.cHints[game.index] < 2) {
 
-                const typeBG = tBackgrounds[`${game.pokemon.type[0].toLowerCase()}`];
+                const typeBG = type.bg[`${game.pokemon.type[0].toLowerCase()}`];
                 const rng    = Math.floor(Math.random() * typeBG.length);
                 if (!this.img.cb) this.img.cb = typeBG[rng];
 
@@ -620,6 +585,7 @@ window.addEventListener("dataLoad", () => {
         }
     }
 
+    // Display Correct Screen on Mobile
     navItems = {
         name: ["Pokemon", "Dex Entry", "List"],
         c: 0,
@@ -629,6 +595,16 @@ window.addEventListener("dataLoad", () => {
             children(game.total[game.gen]);
         }
     }
+
+
+    // Display Background
+    function bg() {
+
+        const add = (innerWidth > 850) ? "" : "_phone";
+        document.body.style.backgroundImage = `url(images/pkGuess/bg/${params.mode}${add}.jpg)`;
+    }
+    window.onresize = () => bg(); bg();
+
 
 
 
