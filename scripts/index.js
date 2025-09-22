@@ -134,24 +134,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 
-// UI Fade In/Out
-document.addEventListener("click", (event) => {
-
-    if (innerWidth <= 850 && !elements.cBox.contains(event.target)) {
-        (elements.cBox.style.opacity == 1 || elements.cBox.style.opacity == "") ? fade("out") : fade("in");
-    }
-});
-
-// Reload Games on Screen Change
-window.onresize = () => {
-
-    navItems.display({});
-    fade("in");
-}
-
-// Swipe Detection
-
-
 
 /* Startup */
 

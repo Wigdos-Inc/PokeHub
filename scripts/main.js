@@ -29,6 +29,8 @@ let navItems = {};
 // UI Fade In/Out
 function fade(type) {
 
+    console.log("code runs", type);
+
     if (innerWidth > 850) clearTimeout(fadeTimer);
 
     if      (type == "in")  mainE.cBox.style.opacity = 1;
@@ -47,8 +49,23 @@ document.addEventListener("mouseout", (event) => {
 });
 document.addEventListener("click", (event) => {
 
-    if (!mainE.cBox.contains(event.target) && !mainE.header.contains(event.target)) (mainE.cBox.style.opacity == 1 || mainE.cBox.style.opacity == "") ? fade("out") : fade("in");
+    if (!mainE.cBox.contains(event.target) && !mainE.header.contains(event.target) && innerWidth > 850) (mainE.cBox.style.opacity == 1 || mainE.cBox.style.opacity == "") ? fade("out") : fade("in");
 });
+
+// UI Fade In/Out
+//document.addEventListener("click", (event) => {
+//
+//    if (innerWidth <= 850 && !mainE.cBox.contains(event.target)) {
+//        (mainE.cBox.style.opacity == 1 || mainE.cBox.style.opacity == "") ? fade("out") : fade("in");
+//    }
+//});
+
+// Reload navItems on Screen Change
+window.onresize = () => {
+
+    navItems.display({});
+    fade("in");
+}
 
 
 function highlight(boxI, total) {
