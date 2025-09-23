@@ -592,7 +592,28 @@ window.addEventListener("dataLoad", () => {
 
         display: function(change) {
 
+            // Create SwipeNav Children if Needed
             children(game.total[game.gen]);
+
+            // Highlight Correct SwipeNav
+            highlight(game.index, game.total[game.gen]);
+
+
+            if ("h" in change) {
+
+
+
+            }
+
+            if ("v" in change) {
+
+                if (change.v == 1) {
+
+                    
+
+                }
+
+            }
         }
     }
 

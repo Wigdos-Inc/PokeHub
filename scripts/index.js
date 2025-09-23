@@ -43,9 +43,9 @@ navItems = {
         children(this.name.l.length);
 
         // Change Game Order if necessary
-        if ("game" in change) {
+        if ("h" in change) {
 
-            if (change.game == -1) {
+            if (change.h == -1) {
 
                 // Move Last Array Item to the Start
                 this.name.l.unshift(this.name.l.pop());
@@ -54,7 +54,7 @@ navItems = {
                 this.mode.c[0] = (this.mode.c[0] == 0) ? this.mode.l.length-1 : this.mode.c[0]-1;
 
             }
-            else if (change.game == 1) {
+            else if (change.h == 1) {
 
                 // Move First Array Item to the End
                 this.name.l.push(this.name.l.shift());
@@ -70,10 +70,10 @@ navItems = {
         }
 
         // Change Mode Index if necessary
-        if ("mode" in change) {
+        if ("v" in change) {
 
-            if      (change.mode == -1) this.mode.c[1] = (this.mode.c[1] == 0) ? this.mode.s[this.mode.c[0]].length-1 : this.mode.c[1]-1;
-            else if (change.mode == 1)  this.mode.c[1] = (this.mode.c[1] == this.mode.s[this.mode.c[0]].length-1) ? 0 : this.mode.c[1]+1;
+            if      (change.v == -1) this.mode.c[1] = (this.mode.c[1] == 0) ? this.mode.s[this.mode.c[0]].length-1 : this.mode.c[1]-1;
+            else if (change.v == 1)  this.mode.c[1] = (this.mode.c[1] == this.mode.s[this.mode.c[0]].length-1) ? 0 : this.mode.c[1]+1;
 
         }
 
@@ -83,7 +83,7 @@ navItems = {
         tgt[1].innerHTML = this.mode.l[this.mode.c[0]][this.mode.c[1]];
 
         // Highlight SwipeBox
-        highlight(this.mode.c[0]);
+        highlight(this.mode.c[0], this.name.l.length);
 
         for (let boxI=0, infoI = this.name.c-2; boxI < elements.boxes.length; boxI++, infoI++) {
 

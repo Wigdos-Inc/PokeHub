@@ -70,7 +70,7 @@ window.onresize = () => {
 
 function highlight(boxI, total) {
 
-    if (mainE.mobile.swipe.children) {
+    if (mainE.mobile.swipe.children.length) {
 
         // Remove old highlights
         for (let i=0; i < mainE.mobile.swipe.children.length; i++) {
@@ -82,7 +82,7 @@ function highlight(boxI, total) {
         mainE.mobile.swipe.children[boxI].id = "current";
 
     }
-    else mainE.mobile.swipe.innerHTML = boxI;
+    else mainE.mobile.swipe.innerHTML = `${boxI+1}/${total}`;
 }
 
 
@@ -97,7 +97,7 @@ function children(amount) {
                 mainE.mobile.swipe.appendChild(document.createElement("div"));
             }
 
-        } else mainE.mobile.swipe.innerHTML = 1;
+        }
 
     }
 }
@@ -150,8 +150,8 @@ let swipeStorage = {
 
             // Prepare Navigation
             const p = (diff[dir] > 0) 
-            ? (dir == "x") ? { game: -1 } : { mode: -1 }
-            : (dir == "x") ? { game:  1 } : { mode:  1 }
+            ? (dir == "x") ? { h: -1 } : { v: -1 }
+            : (dir == "x") ? { h:  1 } : { v:  1 }
             ;
 
             // Animate contentDiv
