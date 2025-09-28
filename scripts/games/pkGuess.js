@@ -595,25 +595,28 @@ window.addEventListener("dataLoad", () => {
             // Create SwipeNav Children if Needed
             children(game.total[game.gen]);
 
-            // Highlight Correct SwipeNav
-            highlight(game.index, game.total[game.gen]);
-
 
             if ("h" in change) {
 
+                if (change.h == 1) game.index++;
+                else if (change.h == -1) game.index--;
 
+                elements.display();
+                return;
 
             }
 
             if ("v" in change) {
 
-                if (change.v == 1) {
+                if (change.v == 1) this.c++;
+                else if (change.v == -1) this.c--;
 
-                    
-
-                }
+                // Display Correct Box
 
             }
+
+            // Highlight Correct SwipeNav
+            highlight(game.index, game.total[game.gen]);
         }
     }
 
