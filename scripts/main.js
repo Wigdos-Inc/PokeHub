@@ -29,8 +29,6 @@ let navItems = {};
 // UI Fade In/Out
 function fade(type) {
 
-    console.log("code runs", type);
-
     if (innerWidth > 850) clearTimeout(fadeTimer);
 
     if      (type == "in")  mainE.cBox.style.opacity = 1;

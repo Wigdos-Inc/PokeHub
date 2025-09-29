@@ -371,7 +371,7 @@ window.addEventListener("dataLoad", () => {
                 this.img.flip(
                     true, 
                     {
-                        bg: `url(images/bg/guesser/types/${typeBG[rng]}.png)`,
+                        bg: `url(images/pkGuess/types/${typeBG[rng]}.png)`,
                         pk: game.pokemon.img
                     },
                     true,
@@ -386,7 +386,7 @@ window.addEventListener("dataLoad", () => {
                 this.img.flip(
                     false,
                     {
-                        bg: `url(images/bg/guesser/types/${this.img.cb}.png)`,
+                        bg: `url(images/pkGuess/types/${this.img.cb}.png)`,
                         pk: game.pokemon.img
                     },
                     false,
@@ -637,5 +637,5 @@ window.addEventListener("dataLoad", () => {
 
     elements.ini();
     game.ini();
-    navItems.display();
+    navItems.display({});
 });
